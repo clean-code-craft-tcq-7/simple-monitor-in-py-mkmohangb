@@ -30,6 +30,15 @@ def isPulseRateOk(pulseRate):
 def isSpo2Ok(spo2):
   return alert_not_in_range('Oxygen Saturation out of range!', spo2, 90, 100)
 
+def isBloodSugarOk(bloodSugar):
+  return alert_not_in_range('Blood Sugar out of range!', bloodSugar, 70, 110)
+
 def vitals_ok(temperature, pulseRate, spo2):
   return isTemperatureOk(temperature) and \
          isPulseRateOk(pulseRate) and isSpo2Ok(spo2)
+
+def report_is_normal(values):
+  return (isTemperatureOk(values['temperature']) and
+          isPulseRateOk(values['pulseRate']) and
+          isSpo2Ok(values['spo2']) and
+          isBloodSugarOk(values['bloodSugar']))

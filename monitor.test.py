@@ -1,6 +1,6 @@
 import unittest
 import unittest.mock as mock
-from monitor import vitals_ok, alert_not_in_range
+from monitor import vitals_ok, alert_not_in_range, report_is_normal
 
 
 class MonitorTest(unittest.TestCase):
@@ -33,6 +33,14 @@ class MonitorTest(unittest.TestCase):
     def test_all_vitals_ok(self, mock_alert):
         self.assertTrue(vitals_ok(98, 75, 95))
         mock_alert.assert_not_called()
+
+    def test_report_is_normal(self):
+        self.assertTrue(report_is_normal({
+            'temperature': 98,
+            'pulseRate': 75,
+            'spo2': 95,
+            'bloodSugar': 90
+        }))
 
 if __name__ == '__main__':
   unittest.main()

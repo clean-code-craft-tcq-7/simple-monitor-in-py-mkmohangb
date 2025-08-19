@@ -38,7 +38,13 @@ def vitals_ok(temperature, pulseRate, spo2):
          isPulseRateOk(pulseRate) and isSpo2Ok(spo2)
 
 def report_is_normal(values):
-  return (isTemperatureOk(values['temperature']) and
-          isPulseRateOk(values['pulseRate']) and
-          isSpo2Ok(values['spo2']) and
-          isBloodSugarOk(values['bloodSugar']))
+  vitals_map  = {
+    'temperature': isTemperatureOk,
+    'pulseRate': isPulseRateOk,
+    'spo2': isSpo2Ok,
+    'bloodSugar': isBloodSugarOk
+  }
+  for key, check in vitals_map.items():
+    if not check(values[key]):
+      return False
+  return True
